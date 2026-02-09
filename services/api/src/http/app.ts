@@ -1,0 +1,25 @@
+import type { Express } from 'express';
+import express from 'express';
+import { requestId } from './middleware/requestId.ts';
+
+type AppDependencies = {
+  services: {};
+  repos: {};
+  controllers: {};
+};
+
+// type RouteDependencies = AppDependencies['controllers'];
+
+export function createApp(_dep: AppDependencies = {}): Express {
+  const app = express();
+
+  app.use(requestId);
+  app.use(express.urlencoded({ extended: true })); //
+  app.use(express.json());
+
+  return app;
+}
+
+// function createRoutes(routes: RouteDependencies) {
+
+// }
