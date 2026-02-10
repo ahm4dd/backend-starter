@@ -1,7 +1,7 @@
+import { NotFoundError } from '@template/shared';
 import type { Request, Response } from 'express';
 import { CreateNoteDTOSchema } from '../../app/dto/notes.ts';
 import type { NotesService } from '../../app/services/notes.service.ts';
-import { NotFoundError } from '@template/shared';
 
 export class NotesController {
   constructor(private readonly service: NotesService) {}
@@ -17,9 +17,9 @@ export class NotesController {
     const id: string = req.params.id;
     const note = await this.service.getNoteById(id);
     if (!note) {
-        throw new NotFoundError('Note not found');
+      throw new NotFoundError('Note not found');
     }
 
-    res.status(200).json({data: note});
+    res.status(200).json({ data: note });
   }
 }
