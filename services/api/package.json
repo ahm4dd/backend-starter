@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
-    "dev": "node --watch --env-file=.env --env-file-if-exists=.env.development src/index.ts",
+    "dev": "node --watch --env-file .env ./src/index.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "biome check .",

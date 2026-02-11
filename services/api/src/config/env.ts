@@ -22,6 +22,8 @@ const parsedConfig = ConfigSchema.safeParse({
 
 if (!parsedConfig.success) {
   const flattenedError = z.flattenError(parsedConfig.error);
+  console.log('error');
+  console.log(flattenedError);
   // TODO: Add logging here for an error
   process.exit(1);
 }
