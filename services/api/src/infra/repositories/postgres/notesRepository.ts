@@ -5,7 +5,11 @@ import { type AppDb, db } from '../../db/index.ts';
 import { notes } from '../../db/schema.ts';
 
 export class PostgresNotesRepository implements INotesRepository {
-  constructor(private readonly database: AppDb = db) {}
+  private readonly database: AppDb;
+
+  constructor(database: AppDb = db) {
+    this.database = database;
+  }
 
   async create(note: NewNote): Promise<Note> {
     const [createdNote] = await this.database.insert(notes).values(note).returning();

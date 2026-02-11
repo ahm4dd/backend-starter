@@ -1,0 +1,266 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "backend-starter API",
+    "version": "1.0.0",
+    "description": "Notes API with health checks and machine-readable OpenAPI documentation."
+  },
+  "tags": [
+    {
+      "name": "system",
+      "description": "System and health operations"
+    },
+    {
+      "name": "notes",
+      "description": "Notes CRUD operations"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": ["ok"]
+              }
+            },
+            "required": ["status"]
+          }
+        },
+        "required": ["data"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": ["string", "null"]
+              },
+              "path": {
+                "type": "string"
+              },
+              "method": {
+                "type": "string"
+              },
+              "docsUrl": {
+                "type": "string"
+              },
+              "details": {}
+            },
+            "required": ["code", "message", "requestId", "path", "method", "docsUrl"]
+          }
+        },
+        "required": ["error"]
+      },
+      "NoteResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": ["string", "null"]
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["id", "title", "description", "createdAt", "updatedAt"]
+          }
+        },
+        "required": ["data"]
+      },
+      "CreateNoteInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": ["title"]
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["system"],
+        "operationId": "getHealth",
+        "summary": "Health check",
+        "description": "Returns API liveness status.",
+        "responses": {
+          "200": {
+            "description": "Service is healthy.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notes": {
+      "post": {
+        "tags": ["notes"],
+        "operationId": "createNote",
+        "summary": "Create note",
+        "description": "Creates a new note.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNoteInput"
+              },
+              "examples": {
+                "createNote": {
+                  "value": {
+                    "title": "Quarterly planning",
+                    "description": "Draft the Q4 plan"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Note created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notes/{id}": {
+      "get": {
+        "tags": ["notes"],
+        "operationId": "getNoteById",
+        "summary": "Get note by id",
+        "description": "Returns the note for the provided id.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Note UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Note found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Note not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {}
+}

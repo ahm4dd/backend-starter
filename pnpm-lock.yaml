@@ -22,6 +22,12 @@ importers:
 
   services/api:
     dependencies:
+      '@asteasolutions/zod-to-openapi':
+        specifier: ^8.4.0
+        version: 8.4.0(zod@4.3.6)
+      '@scalar/express-api-reference':
+        specifier: ^0.8.40
+        version: 0.8.40
       '@template/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -55,6 +61,11 @@ importers:
         version: 0.31.9
 
 packages:
+
+  '@asteasolutions/zod-to-openapi@8.4.0':
+    resolution: {integrity: sha512-Ckp971tmTw4pnv+o7iK85ldBHBKk6gxMaoNyLn3c2Th/fKoTG8G3jdYuOanpdGqwlDB0z01FOjry2d32lfTqrA==}
+    peerDependencies:
+      zod: ^4.0.0
 
   '@biomejs/biome@2.3.14':
     resolution: {integrity: sha512-QMT6QviX0WqXJCaiqVMiBUCr5WRQ1iFSjvOLoTk6auKukJMvnMzWucXpwZB0e8F00/1/BsS9DzcKgWH+CLqVuA==}
@@ -408,6 +419,22 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@scalar/core@0.3.37':
+    resolution: {integrity: sha512-cQWMHsGD9jCiYHi91acR3tOsj+qGk+dRQ2W+N5+au1NZ/GkUNT5TUEufekn/sj1S8af+lOnn3y0xXoTI34jCog==}
+    engines: {node: '>=20'}
+
+  '@scalar/express-api-reference@0.8.40':
+    resolution: {integrity: sha512-3u7iekCDqgseCN3DequWpyoHSOm/tPBmEV2D1e3wFiKe47em6/b1mDKtYXAS1IPXeGXXpbZTDzteYEqy6U13Cw==}
+    engines: {node: '>=20'}
+
+  '@scalar/helpers@0.2.11':
+    resolution: {integrity: sha512-Y7DLt1bIZF9dvHzJwSJTcC1lpSr1Tbf4VBhHOCRIHu23Rr7/lhQnddRxFmPV1tZXwEQKz7F7yRrubwCfKPCucw==}
+    engines: {node: '>=20'}
+
+  '@scalar/types@0.6.2':
+    resolution: {integrity: sha512-VWfY/z9R5NT8PpKVmvmIj6QSh56MMcl8x3JsGiNxR+w7txGQEq+QzEl35aU56uSBFmLfPk1oyInoaHhkosKooA==}
+    engines: {node: '>=20'}
+
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
 
@@ -717,6 +744,11 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
+  nanoid@5.1.6:
+    resolution: {integrity: sha512-c7+7RQ+dMB5dPwwCp4ee1/iV/q2P6aK1mTZcfr1BTuVlyW9hJYiMPybJCcnBlQtuSmTIWNeazm/zqNoZSSElBg==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   negotiator@1.0.0:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
@@ -731,6 +763,9 @@ packages:
 
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
+
+  openapi3-ts@4.5.0:
+    resolution: {integrity: sha512-jaL+HgTq2Gj5jRcfdutgRGLosCy/hT8sQf6VOy+P+g36cZOjI1iukdPnijC+4CmeRzg/jEllJUboEic2FhxhtQ==}
 
   parseurl@1.3.3:
     resolution: {integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==}
@@ -857,6 +892,10 @@ packages:
     resolution: {integrity: sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==}
     engines: {node: '>= 0.8'}
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
@@ -895,6 +934,10 @@ packages:
     resolution: {integrity: sha512-8Osxz5Tu/Dw2kb31EAY+nhq/YZ3wzmQSmYa1nIArqxgCAldxv9TPlrAiaBUDVnKA4aiPn0OFBD1ACcpc5VFOAQ==}
     hasBin: true
 
+  type-fest@5.4.4:
+    resolution: {integrity: sha512-JnTrzGu+zPV3aXIUhnyWJj4z/wigMsdYajGLIYakqyOW1nPllzXEJee0QQbHj+CTIQtXGlAjuK0UY+2xTyjVAw==}
+    engines: {node: '>=20'}
+
   type-is@2.0.1:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
@@ -922,10 +965,20 @@ packages:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
     engines: {node: '>=0.4'}
 
+  yaml@2.8.2:
+    resolution: {integrity: sha512-mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==}
+    engines: {node: '>= 14.6'}
+    hasBin: true
+
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
 snapshots:
+
+  '@asteasolutions/zod-to-openapi@8.4.0(zod@4.3.6)':
+    dependencies:
+      openapi3-ts: 4.5.0
+      zod: 4.3.6
 
   '@biomejs/biome@2.3.14':
     optionalDependencies:
@@ -1117,6 +1170,23 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.12':
     optional: true
+
+  '@scalar/core@0.3.37':
+    dependencies:
+      '@scalar/types': 0.6.2
+
+  '@scalar/express-api-reference@0.8.40':
+    dependencies:
+      '@scalar/core': 0.3.37
+
+  '@scalar/helpers@0.2.11': {}
+
+  '@scalar/types@0.6.2':
+    dependencies:
+      '@scalar/helpers': 0.2.11
+      nanoid: 5.1.6
+      type-fest: 5.4.4
+      zod: 4.3.6
 
   '@types/body-parser@1.19.6':
     dependencies:
@@ -1421,6 +1491,8 @@ snapshots:
 
   ms@2.1.3: {}
 
+  nanoid@5.1.6: {}
+
   negotiator@1.0.0: {}
 
   object-inspect@1.13.4: {}
@@ -1432,6 +1504,10 @@ snapshots:
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
+
+  openapi3-ts@4.5.0:
+    dependencies:
+      yaml: 2.8.2
 
   parseurl@1.3.3: {}
 
@@ -1580,6 +1656,8 @@ snapshots:
 
   statuses@2.0.2: {}
 
+  tagged-tag@1.0.0: {}
+
   toidentifier@1.0.1: {}
 
   turbo-darwin-64@2.8.3:
@@ -1609,6 +1687,10 @@ snapshots:
       turbo-windows-64: 2.8.3
       turbo-windows-arm64: 2.8.3
 
+  type-fest@5.4.4:
+    dependencies:
+      tagged-tag: 1.0.0
+
   type-is@2.0.1:
     dependencies:
       content-type: 1.0.5
@@ -1626,5 +1708,7 @@ snapshots:
   wrappy@1.0.2: {}
 
   xtend@4.0.2: {}
+
+  yaml@2.8.2: {}
 
   zod@4.3.6: {}

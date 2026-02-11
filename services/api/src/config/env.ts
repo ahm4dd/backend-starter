@@ -1,13 +1,10 @@
 import { z } from 'zod';
 
-// Export Node Env types separately so that parsedConfig can use NodeEnv
-// And so zod can use NodeEnvs to import NodeEnv possible values
 const NodeEnvs = ['development', 'production', 'test'] as const;
 type NodeEnv = (typeof NodeEnvs)[number];
 
 const ConfigSchema = z.object({
   NODE_ENV: z.enum(NodeEnvs).default('development'),
-  // NODE_ENV: z.string().default('development'),
   PORT: z.string().default('3000'),
   DATABASE_URL: z.string(),
 });
@@ -22,10 +19,9 @@ const parsedConfig = ConfigSchema.safeParse({
 
 if (!parsedConfig.success) {
   const flattenedError = z.flattenError(parsedConfig.error);
-  console.log('error');
-  console.log(flattenedError);
-  // TODO: Add logging here for an error
+  console.error('Invalid environment configuration');
+  console.error(flattenedError);
   process.exit(1);
 }
 
-export const config = parsedConfig.data!;
+export const config = parsedConfig.data;

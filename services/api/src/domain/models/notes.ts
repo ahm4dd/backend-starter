@@ -1,4 +1,17 @@
-import type { NewNoteRow, NoteRow } from '../../infra/db/schema.ts';
+export const NOTE_TITLE_MAX_LENGTH = 255;
 
-export type Note = NoteRow;
-export type NewNote = NewNoteRow;
+export type Note = {
+  id: string;
+  title: string;
+  description: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type NewNote = {
+  id?: string;
+  title: string;
+  description?: string | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+};

@@ -24,6 +24,10 @@
     "db:migrate": {
       "dependsOn": ["^db:migrate"],
       "cache": false
+    },
+    "openapi:generate": {
+      "dependsOn": ["^openapi:generate"],
+      "cache": false
     }
   }
 }

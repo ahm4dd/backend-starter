@@ -4,12 +4,12 @@ import { createApp } from './http/app.ts';
 const app = createApp();
 
 const server = app.listen(config.PORT, () => {
-  console.log(`Example app listening on port http://localhost:${config.PORT}`);
+  console.log(`API listening on http://localhost:${config.PORT}`);
 });
 
 function shutdown(signal: string) {
   console.log(`Shutting down with signal: ${signal}`);
-  new Promise((resolve) => server.close(resolve));
+  server.close();
 
   process.exit(0);
 }
@@ -19,5 +19,5 @@ process.on('SIGINT', () => {
 });
 
 process.on('SIGTERM', () => {
-  shutdown('SIGINT');
+  shutdown('SIGTERM');
 });
