@@ -13,7 +13,9 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint --parallel",
     "lint:fix": "turbo run lint:fix --parallel",
-    "typecheck": "turbo run typecheck --parallel"
+    "typecheck": "turbo run typecheck --parallel",
+    "db:generate:api": "turbo run db:generate --filter=@template/api",
+    "db:migrate:api": "turbo run db:migrate --filter=@template/api"
   },
   "repository": {
     "type": "git",

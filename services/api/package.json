@@ -8,7 +8,9 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "biome check .",
-    "lint:fix": "biome check --write ."
+    "lint:fix": "biome check --write .",
+    "db:generate": "npx drizzle-kit generate",
+    "db:migrate": "npx drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",

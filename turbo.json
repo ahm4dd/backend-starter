@@ -16,6 +16,14 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "db:generate": {
+      "dependsOn": ["^db:generate"],
+      "cache": false
+    },
+    "db:migrate": {
+      "dependsOn": ["^db:migrate"],
+      "cache": false
     }
   }
 }
