@@ -3,7 +3,7 @@
 TypeScript monorepo starter focused on backend APIs with:
 
 - Express 5 HTTP service
-- Zod validation and DTO schemas
+- Zod validation and reusable transport contracts
 - Drizzle ORM + PostgreSQL
 - OpenAPI 3.1 generation from code
 - Scalar API reference UI
@@ -22,12 +22,16 @@ This repository uses a simple layered backend design:
   infrastructure implementations (database and repository adapters)
 - `packages/shared/src`:
   shared cross-service primitives (application errors)
+- `packages/contracts/src`:
+  shared transport contracts (HTTP payloads and API schemas)
 
 ## Project Structure
 
 ```text
 .
 ├── packages/
+│   ├── contracts/
+│   │   └── src/
 │   └── shared/
 │       └── src/
 ├── services/
@@ -152,7 +156,7 @@ OpenAPI is generated from code using:
 
 Contract schema location:
 
-- `services/api/src/http/contracts`
+- `packages/contracts/src/http`
 
 Primary implementation files:
 

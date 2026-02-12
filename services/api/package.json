@@ -28,6 +28,7 @@
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^8.4.0",
     "@scalar/express-api-reference": "^0.8.40",
+    "@template/contracts": "workspace:*",
     "@template/shared": "workspace:*",
     "drizzle-orm": "^0.45.1",
     "express": "^5.2.1",

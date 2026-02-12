@@ -1,16 +1,14 @@
 import { OpenAPIRegistry, OpenApiGeneratorV31 } from '@asteasolutions/zod-to-openapi';
+import {
+  CreateNoteBodySchema,
+  ErrorBodySchema,
+  ErrorResponseSchema,
+  HealthResponseSchema,
+  NoteIdParamSchema,
+  NoteResponseSchema,
+  NoteSchema,
+} from '@template/contracts';
 import { z } from 'zod';
-import {
-  ErrorBodyDTOSchema,
-  ErrorResponseDTOSchema,
-  HealthResponseDTOSchema,
-} from './contracts/http.ts';
-import {
-  CreateNoteDTOSchema,
-  NoteDTOSchema,
-  NoteIdDTOSchema,
-  NoteResponseDTOSchema,
-} from './contracts/notes.ts';
 
 export const OPEN_API_ROUTE = '/openapi.json';
 export const DOCS_ROUTE = '/docs';
@@ -21,14 +19,14 @@ export const OPEN_API_DESCRIPTION =
 
 const registry = new OpenAPIRegistry();
 
-const CreateNoteInputSchema = CreateNoteDTOSchema.meta({ id: 'CreateNoteInput' });
-const NoteSchema = NoteDTOSchema.meta({ id: 'Note' });
-const NoteResponseSchema = NoteResponseDTOSchema.meta({ id: 'NoteResponse' });
-const HealthResponseSchema = HealthResponseDTOSchema.meta({ id: 'HealthResponse' });
-const ErrorBodySchema = ErrorBodyDTOSchema.meta({ id: 'ErrorBody' });
-const ErrorResponseSchema = ErrorResponseDTOSchema.meta({ id: 'ErrorResponse' });
+const CreateNoteInputSchema = CreateNoteBodySchema.meta({ id: 'CreateNoteInput' });
+const NoteOpenApiSchema = NoteSchema.meta({ id: 'Note' });
+const NoteResponseOpenApiSchema = NoteResponseSchema.meta({ id: 'NoteResponse' });
+const HealthResponseOpenApiSchema = HealthResponseSchema.meta({ id: 'HealthResponse' });
+const ErrorBodyOpenApiSchema = ErrorBodySchema.meta({ id: 'ErrorBody' });
+const ErrorResponseOpenApiSchema = ErrorResponseSchema.meta({ id: 'ErrorResponse' });
 
-const NoteIdPathParameterSchema = z.toJSONSchema(NoteIdDTOSchema, {
+const NoteIdPathParameterSchema = z.toJSONSchema(NoteIdParamSchema, {
   target: 'openApi3',
 }) as Record<string, unknown>;
 
@@ -51,8 +49,8 @@ registry.registerPath({
   summary: 'Health check',
   description: 'Returns API liveness status.',
   responses: {
-    '200': createJsonResponse('Service is healthy.', HealthResponseSchema),
-    '500': createJsonResponse('Unexpected server error.', ErrorResponseSchema),
+    '200': createJsonResponse('Service is healthy.', HealthResponseOpenApiSchema),
+    '500': createJsonResponse('Unexpected server error.', ErrorResponseOpenApiSchema),
   },
 });
 
@@ -82,9 +80,9 @@ registry.registerPath({
     },
   },
   responses: {
-    '201': createJsonResponse('Note created.', NoteResponseSchema),
-    '400': createJsonResponse('Invalid request payload.', ErrorResponseSchema),
-    '500': createJsonResponse('Unexpected server error.', ErrorResponseSchema),
+    '201': createJsonResponse('Note created.', NoteResponseOpenApiSchema),
+    '400': createJsonResponse('Invalid request payload.', ErrorResponseOpenApiSchema),
+    '500': createJsonResponse('Unexpected server error.', ErrorResponseOpenApiSchema),
   },
 });
 
@@ -105,20 +103,20 @@ registry.registerPath({
     },
   ],
   responses: {
-    '200': createJsonResponse('Note found.', NoteResponseSchema),
-    '400': createJsonResponse('Invalid id format.', ErrorResponseSchema),
-    '404': createJsonResponse('Note not found.', ErrorResponseSchema),
-    '500': createJsonResponse('Unexpected server error.', ErrorResponseSchema),
+    '200': createJsonResponse('Note found.', NoteResponseOpenApiSchema),
+    '400': createJsonResponse('Invalid id format.', ErrorResponseOpenApiSchema),
+    '404': createJsonResponse('Note not found.', ErrorResponseOpenApiSchema),
+    '500': createJsonResponse('Unexpected server error.', ErrorResponseOpenApiSchema),
   },
 });
 
 const openApiDefinitions = [
   CreateNoteInputSchema,
-  NoteSchema,
-  NoteResponseSchema,
-  HealthResponseSchema,
-  ErrorBodySchema,
-  ErrorResponseSchema,
+  NoteOpenApiSchema,
+  NoteResponseOpenApiSchema,
+  HealthResponseOpenApiSchema,
+  ErrorBodyOpenApiSchema,
+  ErrorResponseOpenApiSchema,
   ...registry.definitions,
 ];
 

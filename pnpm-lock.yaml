@@ -18,6 +18,12 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/contracts:
+    dependencies:
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
+
   packages/shared: {}
 
   services/api:
@@ -28,6 +34,9 @@ importers:
       '@scalar/express-api-reference':
         specifier: ^0.8.40
         version: 0.8.40
+      '@template/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@template/shared':
         specifier: workspace:*
         version: link:../../packages/shared

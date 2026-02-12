@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-export const HealthResponseDTOSchema = z.object({
+export const HealthResponseSchema = z.object({
   data: z.object({
     status: z.literal('ok'),
   }),
 });
 
-export const ErrorBodyDTOSchema = z.object({
+export const ErrorBodySchema = z.object({
   code: z.string(),
   message: z.string(),
   requestId: z.string().nullable(),
@@ -16,6 +16,6 @@ export const ErrorBodyDTOSchema = z.object({
   details: z.unknown().nullable(),
 });
 
-export const ErrorResponseDTOSchema = z.object({
-  error: ErrorBodyDTOSchema,
+export const ErrorResponseSchema = z.object({
+  error: ErrorBodySchema,
 });
