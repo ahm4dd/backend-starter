@@ -1,31 +1,31 @@
 import { randomUUID } from 'node:crypto';
-import type { NewNote, Note } from '../../../domain/models/notes.ts';
-import type { INotesRepository } from '../../../domain/repositories/notesRepository.ts';
+import type { INotesRepository } from '../../../app/ports/notesRepository.ts';
+import type { NewNoteRow, NoteRow } from '../../db/schema.ts';
 
 export class MemoryNotesRepository implements INotesRepository {
-  private readonly notes = new Map<string, Note>();
+  private readonly notes = new Map<string, NoteRow>();
 
-  constructor(initialNotes: Note[] = []) {
+  constructor(initialNotes: NoteRow[] = []) {
     for (const note of initialNotes) {
       this.notes.set(note.id, { ...note });
     }
   }
 
-  async create(note: NewNote): Promise<Note> {
+  async create(note: NewNoteRow): Promise<NoteRow> {
     const now = new Date();
-    const newNote: Note = {
-      id: note.id ?? randomUUID(),
+    const newNote: NoteRow = {
+      id: randomUUID(),
       title: note.title,
       description: note.description ?? null,
-      createdAt: note.createdAt ?? now,
-      updatedAt: note.updatedAt ?? now,
+      createdAt: now,
+      updatedAt: now,
     };
 
     this.notes.set(newNote.id, newNote);
     return { ...newNote };
   }
 
-  async findById(id: string): Promise<Note | null> {
+  async findById(id: string): Promise<NoteRow | null> {
     const note = this.notes.get(id);
     if (!note) {
       return null;

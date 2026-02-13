@@ -1,0 +1,1 @@
+ALTER TABLE "notes" ADD CONSTRAINT "notes_title_not_empty" CHECK (char_length(trim("notes"."title")) > 0);

@@ -13,7 +13,8 @@
       "**",
       "!!**/dist",
       "!!**/build",
-      "!!**/coverage"
+      "!!**/coverage",
+      "!!**/openapi/openapi.json"
     ],
     "ignoreUnknown": true
   },

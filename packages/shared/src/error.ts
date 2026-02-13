@@ -47,3 +47,12 @@ export class ForbiddenError extends AppError {
     super('FORBIDDEN', message, 403);
   }
 }
+
+/**
+ * Error thrown when a dependency is unavailable.
+ */
+export class ServiceUnavailableError extends AppError {
+  constructor(message: string) {
+    super('SERVICE_UNAVAILABLE', message, 503);
+  }
+}

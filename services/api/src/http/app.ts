@@ -1,8 +1,8 @@
 import { NotFoundError } from '@template/shared';
 import type { Express } from 'express';
 import express from 'express';
+import type { INotesRepository } from '../app/ports/notesRepository.ts';
 import { NotesService } from '../app/services/notes.service.ts';
-import type { INotesRepository } from '../domain/repositories/notesRepository.ts';
 import { PostgresNotesRepository } from '../infra/repositories/postgres/notesRepository.ts';
 import { NotesController } from './controllers/notes.controller.ts';
 import { errorHandler } from './middleware/errorHandler.ts';

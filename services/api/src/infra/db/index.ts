@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import { config } from '../../config/env.ts';
@@ -11,4 +12,13 @@ export type AppDb = typeof db;
 
 export function createDb(client: Pool) {
   return drizzle({ client, schema });
+}
+
+export async function checkDatabaseHealth(database: AppDb = db): Promise<boolean> {
+  try {
+    await database.execute(sql`select 1`);
+    return true;
+  } catch {
+    return false;
+  }
 }

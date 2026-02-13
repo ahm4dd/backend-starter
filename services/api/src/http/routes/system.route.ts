@@ -1,14 +1,14 @@
 import { apiReference } from '@scalar/express-api-reference';
+import { ServiceUnavailableError } from '@template/shared';
 import { Router } from 'express';
-import { buildOpenApiDocument, DOCS_ROUTE, OPEN_API_ROUTE, OPEN_API_TITLE } from '../openapi.ts';
+import { checkDatabaseHealth } from '../../infra/db/index.ts';
+import { DOCS_ROUTE, OPEN_API_ROUTE, OPEN_API_TITLE, openApiDocument } from '../openapi.ts';
 
 export function createSystemRouter(): Router {
   const router = Router();
 
-  router.get(OPEN_API_ROUTE, (req, res) => {
-    const host = req.get('host') ?? 'localhost:3000';
-    const serverUrl = `${req.protocol}://${host}`;
-    res.status(200).json(buildOpenApiDocument(serverUrl));
+  router.get(OPEN_API_ROUTE, (_req, res) => {
+    res.status(200).json(openApiDocument);
   });
 
   router.get(
@@ -26,7 +26,12 @@ export function createSystemRouter(): Router {
     }),
   );
 
-  router.get('/health', (_req, res) => {
+  router.get('/health', async (_req, res) => {
+    const isDatabaseHealthy = await checkDatabaseHealth();
+    if (!isDatabaseHealthy) {
+      throw new ServiceUnavailableError('Database is unavailable');
+    }
+
     res.status(200).json({ data: { status: 'ok' } });
   });
 

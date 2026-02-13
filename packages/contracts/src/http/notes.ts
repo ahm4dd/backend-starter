@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
+export const NOTE_TITLE_MAX_LENGTH = 255;
+
 export const CreateNoteBodySchema = z.object({
-  title: z.string(),
-  description: z.string().optional().nullable(),
+  title: z.string().trim().min(1).max(NOTE_TITLE_MAX_LENGTH),
+  description: z.string().trim().optional().nullable(),
 });
 
 export const NoteIdParamSchema = z.uuid();

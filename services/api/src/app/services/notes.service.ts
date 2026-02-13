@@ -1,6 +1,6 @@
-import { ValidationError } from '@template/shared';
-import { type NewNote, NOTE_TITLE_MAX_LENGTH, type Note } from '../../domain/models/notes.ts';
-import type { INotesRepository } from '../../domain/repositories/notesRepository.ts';
+import { type CreateNoteBody, CreateNoteBodySchema } from '@template/contracts';
+import type { NewNoteRow, NoteRow } from '../../infra/db/schema.ts';
+import type { INotesRepository } from '../ports/notesRepository.ts';
 
 export class NotesService {
   private readonly repo: INotesRepository;
@@ -9,20 +9,16 @@ export class NotesService {
     this.repo = repo;
   }
 
-  async create(note: NewNote): Promise<Note> {
-    note.title = note.title.trim();
-    note.description = note.description ? note.description.trim() : note.description;
-    if (note.title.length > NOTE_TITLE_MAX_LENGTH) {
-      throw new ValidationError(
-        `Note title must not exceed the ${NOTE_TITLE_MAX_LENGTH} character length`,
-      );
-    }
+  async create(note: CreateNoteBody): Promise<NoteRow> {
+    const input = CreateNoteBodySchema.parse(note);
 
-    const newNote = await this.repo.create(note);
-    return newNote;
+    return await this.repo.create({
+      title: input.title,
+      description: input.description ?? null,
+    } satisfies NewNoteRow);
   }
 
-  async getNoteById(id: string): Promise<Note | null> {
+  async getNoteById(id: string): Promise<NoteRow | null> {
     return await this.repo.findById(id);
   }
 }

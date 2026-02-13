@@ -25,13 +25,19 @@
             "properties": {
               "status": {
                 "type": "string",
-                "enum": ["ok"]
+                "enum": [
+                  "ok"
+                ]
               }
             },
-            "required": ["status"]
+            "required": [
+              "status"
+            ]
           }
         },
-        "required": ["data"]
+        "required": [
+          "data"
+        ]
       },
       "ErrorResponse": {
         "type": "object",
@@ -46,7 +52,10 @@
                 "type": "string"
               },
               "requestId": {
-                "type": ["string", "null"]
+                "type": [
+                  "string",
+                  "null"
+                ]
               },
               "path": {
                 "type": "string"
@@ -57,12 +66,28 @@
               "docsUrl": {
                 "type": "string"
               },
-              "details": {}
+              "details": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": {}
+              }
             },
-            "required": ["code", "message", "requestId", "path", "method", "docsUrl"]
+            "required": [
+              "code",
+              "message",
+              "requestId",
+              "path",
+              "method",
+              "docsUrl",
+              "details"
+            ]
           }
         },
-        "required": ["error"]
+        "required": [
+          "error"
+        ]
       },
       "NoteResponse": {
         "type": "object",
@@ -78,7 +103,10 @@
                 "type": "string"
               },
               "description": {
-                "type": ["string", "null"]
+                "type": [
+                  "string",
+                  "null"
+                ]
               },
               "createdAt": {
                 "type": "string",
@@ -89,22 +117,37 @@
                 "format": "date-time"
               }
             },
-            "required": ["id", "title", "description", "createdAt", "updatedAt"]
+            "required": [
+              "id",
+              "title",
+              "description",
+              "createdAt",
+              "updatedAt"
+            ]
           }
         },
-        "required": ["data"]
+        "required": [
+          "data"
+        ]
       },
       "CreateNoteInput": {
         "type": "object",
         "properties": {
           "title": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
           },
           "description": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
-        "required": ["title"]
+        "required": [
+          "title"
+        ]
       }
     },
     "parameters": {}
@@ -112,7 +155,9 @@
   "paths": {
     "/health": {
       "get": {
-        "tags": ["system"],
+        "tags": [
+          "system"
+        ],
         "operationId": "getHealth",
         "summary": "Health check",
         "description": "Returns API liveness status.",
@@ -136,13 +181,25 @@
                 }
               }
             }
+          },
+          "503": {
+            "description": "Required dependency is unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       }
     },
     "/notes": {
       "post": {
-        "tags": ["notes"],
+        "tags": [
+          "notes"
+        ],
         "operationId": "createNote",
         "summary": "Create note",
         "description": "Creates a new note.",
@@ -200,7 +257,9 @@
     },
     "/notes/{id}": {
       "get": {
-        "tags": ["notes"],
+        "tags": [
+          "notes"
+        ],
         "operationId": "getNoteById",
         "summary": "Get note by id",
         "description": "Returns the note for the provided id.",

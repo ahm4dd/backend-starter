@@ -15,11 +15,9 @@ This repository uses a simple layered backend design:
 - `services/api/src/http`:
   HTTP transport (routes, controllers, middleware, OpenAPI docs exposure)
 - `services/api/src/app`:
-  application services and orchestration logic
-- `services/api/src/domain`:
-  domain models and repository interfaces
+  application services, ports, and use-case orchestration logic
 - `services/api/src/infra`:
-  infrastructure implementations (database and repository adapters)
+  infrastructure implementations (database, repositories, and adapters)
 - `packages/shared/src`:
   shared cross-service primitives (application errors)
 - `packages/contracts/src`:

@@ -50,6 +50,7 @@ registry.registerPath({
   description: 'Returns API liveness status.',
   responses: {
     '200': createJsonResponse('Service is healthy.', HealthResponseOpenApiSchema),
+    '503': createJsonResponse('Required dependency is unavailable.', ErrorResponseOpenApiSchema),
     '500': createJsonResponse('Unexpected server error.', ErrorResponseOpenApiSchema),
   },
 });

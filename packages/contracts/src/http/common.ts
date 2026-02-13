@@ -13,7 +13,7 @@ export const ErrorBodySchema = z.object({
   path: z.string(),
   method: z.string(),
   docsUrl: z.string(),
-  details: z.unknown().nullable(),
+  details: z.record(z.string(), z.unknown()).nullable(),
 });
 
 export const ErrorResponseSchema = z.object({

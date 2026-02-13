@@ -30,6 +30,29 @@ function buildErrorPayload(
   };
 }
 
+function logUnhandledError(err: unknown, req: Request): void {
+  const context = {
+    requestId: req.id ?? null,
+    method: req.method,
+    path: req.originalUrl,
+  };
+
+  if (err instanceof Error) {
+    console.error('Unhandled exception', {
+      ...context,
+      name: err.name,
+      message: err.message,
+      stack: err.stack,
+    });
+    return;
+  }
+
+  console.error('Unhandled non-error exception', {
+    ...context,
+    err,
+  });
+}
+
 export function errorHandler(err: unknown, req: Request, res: Response, next: NextFunction) {
   if (res.headersSent) {
     return next(err);
@@ -44,6 +67,8 @@ export function errorHandler(err: unknown, req: Request, res: Response, next: Ne
     const error = buildErrorPayload(req, err.code, err.message);
     return res.status(err.httpStatus).json({ error });
   }
+
+  logUnhandledError(err, req);
 
   const error = buildErrorPayload(req, 'INTERNAL_SERVER_ERROR', 'Unexpected error');
   return res.status(500).json({
