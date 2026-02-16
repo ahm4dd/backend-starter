@@ -1,11 +1,11 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-const NodeEnvs = ['development', 'production', 'test'] as const;
+const NodeEnvs = ["development", "production", "test"] as const;
 type NodeEnv = (typeof NodeEnvs)[number];
 
 const ConfigSchema = z.object({
-  NODE_ENV: z.enum(NodeEnvs).default('development'),
-  PORT: z.string().default('3000'),
+  NODE_ENV: z.enum(NodeEnvs).default("development"),
+  PORT: z.string().default("3000"),
   DATABASE_URL: z.string(),
 });
 
@@ -19,7 +19,7 @@ const parsedConfig = ConfigSchema.safeParse({
 
 if (!parsedConfig.success) {
   const flattenedError = z.flattenError(parsedConfig.error);
-  console.error('Invalid environment configuration');
+  console.error("Invalid environment configuration");
   console.error(flattenedError);
   process.exit(1);
 }

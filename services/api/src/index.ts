@@ -1,6 +1,6 @@
-import { config } from './config/env.ts';
-import { createApp } from './http/app.ts';
-import { pool } from './infra/db/index.ts';
+import { config } from "./config/env.ts";
+import { createApp } from "./http/app.ts";
+import { pool } from "./infra/db/index.ts";
 
 const app = createApp();
 const SHUTDOWN_TIMEOUT_MS = 10_000;
@@ -44,15 +44,15 @@ async function shutdown(signal: string) {
     process.exit(0);
   } catch (error) {
     clearTimeout(forceShutdownTimer);
-    console.error('Failed graceful shutdown', error);
+    console.error("Failed graceful shutdown", error);
     process.exit(1);
   }
 }
 
-process.on('SIGINT', () => {
-  void shutdown('SIGINT');
+process.on("SIGINT", () => {
+  void shutdown("SIGINT");
 });
 
-process.on('SIGTERM', () => {
-  void shutdown('SIGTERM');
+process.on("SIGTERM", () => {
+  void shutdown("SIGTERM");
 });

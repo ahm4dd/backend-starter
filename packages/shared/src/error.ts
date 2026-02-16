@@ -17,7 +17,7 @@ export class AppError extends Error {
  */
 export class ValidationError extends AppError {
   constructor(message: string) {
-    super('VALIDATION_ERROR', message, 400);
+    super("VALIDATION_ERROR", message, 400);
   }
 }
 
@@ -26,7 +26,7 @@ export class ValidationError extends AppError {
  */
 export class NotFoundError extends AppError {
   constructor(message: string) {
-    super('NOT_FOUND', message, 404);
+    super("NOT_FOUND", message, 404);
   }
 }
 
@@ -35,7 +35,7 @@ export class NotFoundError extends AppError {
  */
 export class UnauthorizedError extends AppError {
   constructor(message: string) {
-    super('UNAUTHORIZED', message, 401);
+    super("UNAUTHORIZED", message, 401);
   }
 }
 
@@ -44,7 +44,7 @@ export class UnauthorizedError extends AppError {
  */
 export class ForbiddenError extends AppError {
   constructor(message: string) {
-    super('FORBIDDEN', message, 403);
+    super("FORBIDDEN", message, 403);
   }
 }
 
@@ -53,6 +53,6 @@ export class ForbiddenError extends AppError {
  */
 export class ServiceUnavailableError extends AppError {
   constructor(message: string) {
-    super('SERVICE_UNAVAILABLE', message, 503);
+    super("SERVICE_UNAVAILABLE", message, 503);
   }
 }

@@ -1,6 +1,6 @@
-import { randomUUID } from 'node:crypto';
-import type { INotesRepository } from '../../../app/ports/notesRepository.ts';
-import type { NewNoteRow, NoteRow } from '../../db/schema.ts';
+import { randomUUID } from "node:crypto";
+import type { INotesRepository } from "../../../app/ports/notesRepository.ts";
+import type { NewNoteRow, NoteRow } from "../../db/schema.ts";
 
 export class MemoryNotesRepository implements INotesRepository {
   private readonly notes = new Map<string, NoteRow>();

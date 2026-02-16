@@ -4,7 +4,7 @@
   "vcs": {
     "clientKind": "git",
     "enabled": true,
-    "useIgnoreFile": true
+    "useIgnoreFile": true,
   },
 
   "files": {
@@ -14,28 +14,27 @@
       "!!**/dist",
       "!!**/build",
       "!!**/coverage",
-      "!!**/openapi/openapi.json"
+      "!!**/openapi/openapi.json",
     ],
-    "ignoreUnknown": true
+    "ignoreUnknown": true,
   },
 
   "formatter": {
     "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 100
+    "formatWithErrors": false,
+    "indentStyle": "space", // Default is tab
+    "indentWidth": 2, // Commonly used with spaces
+    "lineWidth": 80, // Prettier default is 80
+    "lineEnding": "lf", // Prettier defaults to lf
   },
 
   "javascript": {
     "formatter": {
-      "indentStyle": "space",
-      "indentWidth": 2,
-      "lineWidth": 100,
-
-      "quoteStyle": "single",
+      "quoteStyle": "double",
       "semicolons": "always",
-      "trailingCommas": "all"
-    }
+      "trailingCommas": "all",
+      "arrowParentheses": "always",
+    },
   },
 
   "linter": {
@@ -44,12 +43,12 @@
       "recommended": true,
 
       // Optional: keep this off in a template until you like the signal/noise.
-      "nursery": { "recommended": false }
-    }
+      "nursery": { "recommended": false },
+    },
   },
 
   "assist": {
     "enabled": true,
-    "actions": { "recommended": true }
-  }
+    "actions": { "recommended": true },
+  },
 }

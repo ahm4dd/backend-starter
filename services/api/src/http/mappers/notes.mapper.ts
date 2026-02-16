@@ -1,5 +1,5 @@
-import type { NoteContract, NoteResponseContract } from '@template/contracts';
-import type { NoteRow } from '../../infra/db/schema.ts';
+import type { NoteContract, NoteResponseContract } from "@template/contracts";
+import type { NoteRow } from "../../infra/db/schema.ts";
 
 export function toNoteContract(note: NoteRow): NoteContract {
   return {

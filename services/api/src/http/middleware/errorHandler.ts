@@ -1,7 +1,7 @@
-import { AppError } from '@template/shared';
-import type { NextFunction, Request, Response } from 'express';
-import { ZodError, z } from 'zod';
-import { DOCS_ROUTE } from '../openapi.ts';
+import { AppError } from "@template/shared";
+import type { NextFunction, Request, Response } from "express";
+import { ZodError, z } from "zod";
+import { DOCS_ROUTE } from "../openapi.ts";
 
 type ErrorPayload = {
   code: string;
@@ -38,7 +38,7 @@ function logUnhandledError(err: unknown, req: Request): void {
   };
 
   if (err instanceof Error) {
-    console.error('Unhandled exception', {
+    console.error("Unhandled exception", {
       ...context,
       name: err.name,
       message: err.message,
@@ -47,19 +47,29 @@ function logUnhandledError(err: unknown, req: Request): void {
     return;
   }
 
-  console.error('Unhandled non-error exception', {
+  console.error("Unhandled non-error exception", {
     ...context,
     err,
   });
 }
 
-export function errorHandler(err: unknown, req: Request, res: Response, next: NextFunction) {
+export function errorHandler(
+  err: unknown,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   if (res.headersSent) {
     return next(err);
   }
 
   if (err instanceof ZodError) {
-    const error = buildErrorPayload(req, 'VALIDATION_ERROR', 'Invalid input', z.flattenError(err));
+    const error = buildErrorPayload(
+      req,
+      "VALIDATION_ERROR",
+      "Invalid input",
+      z.flattenError(err),
+    );
     return res.status(400).json({ error });
   }
 
@@ -70,7 +80,11 @@ export function errorHandler(err: unknown, req: Request, res: Response, next: Ne
 
   logUnhandledError(err, req);
 
-  const error = buildErrorPayload(req, 'INTERNAL_SERVER_ERROR', 'Unexpected error');
+  const error = buildErrorPayload(
+    req,
+    "INTERNAL_SERVER_ERROR",
+    "Unexpected error",
+  );
   return res.status(500).json({
     error,
   });

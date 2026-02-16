@@ -1,8 +1,8 @@
-import { CreateNoteBodySchema, NoteIdParamSchema } from '@template/contracts';
-import { NotFoundError } from '@template/shared';
-import type { Request, Response } from 'express';
-import type { NotesService } from '../../app/services/notes.service.ts';
-import { toNoteResponseContract } from '../mappers/notes.mapper.ts';
+import { CreateNoteBodySchema, NoteIdParamSchema } from "@template/contracts";
+import { NotFoundError } from "@template/shared";
+import type { Request, Response } from "express";
+import type { NotesService } from "../../app/services/notes.service.ts";
+import { toNoteResponseContract } from "../mappers/notes.mapper.ts";
 
 export class NotesController {
   private readonly service: NotesService;
@@ -24,7 +24,7 @@ export class NotesController {
 
     const note = await this.service.getNoteById(id);
     if (!note) {
-      throw new NotFoundError('Note not found');
+      throw new NotFoundError("Note not found");
     }
 
     res.status(200).json(toNoteResponseContract(note));

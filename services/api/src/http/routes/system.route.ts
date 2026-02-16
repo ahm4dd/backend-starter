@@ -1,8 +1,13 @@
-import { apiReference } from '@scalar/express-api-reference';
-import { ServiceUnavailableError } from '@template/shared';
-import { Router } from 'express';
-import { checkDatabaseHealth } from '../../infra/db/index.ts';
-import { DOCS_ROUTE, OPEN_API_ROUTE, OPEN_API_TITLE, openApiDocument } from '../openapi.ts';
+import { apiReference } from "@scalar/express-api-reference";
+import { ServiceUnavailableError } from "@template/shared";
+import { Router } from "express";
+import { checkDatabaseHealth } from "../../infra/db/index.ts";
+import {
+  DOCS_ROUTE,
+  OPEN_API_ROUTE,
+  OPEN_API_TITLE,
+  openApiDocument,
+} from "../openapi.ts";
 
 export function createSystemRouter(): Router {
   const router = Router();
@@ -17,22 +22,22 @@ export function createSystemRouter(): Router {
       pageTitle: `${OPEN_API_TITLE} Docs`,
       title: OPEN_API_TITLE,
       url: OPEN_API_ROUTE,
-      theme: 'saturn',
+      theme: "saturn",
       showSidebar: true,
       defaultHttpClient: {
-        targetKey: 'js',
-        clientKey: 'fetch',
+        targetKey: "js",
+        clientKey: "fetch",
       },
     }),
   );
 
-  router.get('/health', async (_req, res) => {
+  router.get("/health", async (_req, res) => {
     const isDatabaseHealthy = await checkDatabaseHealth();
     if (!isDatabaseHealthy) {
-      throw new ServiceUnavailableError('Database is unavailable');
+      throw new ServiceUnavailableError("Database is unavailable");
     }
 
-    res.status(200).json({ data: { status: 'ok' } });
+    res.status(200).json({ data: { status: "ok" } });
   });
 
   return router;
